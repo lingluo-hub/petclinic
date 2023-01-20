@@ -1,0 +1,49 @@
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+          
+  build:
+
+    runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        # Docker Hub image
+        image: mysql:5.7.8
+        env:
+          MYSQL_USER: petclinic
+          MYSQL_PASSWORD: petclinic
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: petclinic
+        ports:
+          - 3306:3306
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'zulu'
+    - name: Build with Gradle
+      run: |
+        chmod +x gradlew
+        ./gradlew build
+    - name: Upload coverage reports to Codecov
+      run: |
+        curl -Os https://uploader.codecov.io/latest/linux/codecov
+        chmod +x codecov
+        ./codecov -t ${CODECOV_TOKEN}
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        path: build/libs/petclinic-*.jar
