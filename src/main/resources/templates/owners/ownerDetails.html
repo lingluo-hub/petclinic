@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+
+  <body>
+  
+  
+    <h2>主人信息</h2>
+  
+  
+    <table class="table table-striped" th:object="${owner}">
+      <tr>
+        <th>姓名</th>
+        <td><b th:text="*{firstName + ' ' + lastName}"></b></td>
+      </tr>
+      <tr>
+        <th>地址</th>
+        <td th:text="*{address}"></td>
+      </tr>
+      <tr>
+        <th>城市</th>
+        <td th:text="*{city}"></td>
+      </tr>
+      <tr>
+        <th>电话</th>
+        <td th:text="*{telephone}"></td>
+      </tr>
+    </table>
+  
+    <a th:href="@{__${owner.id}__/edit}" class="btn btn-primary">编辑
+      主人</a>
+    <a th:href="@{__${owner.id}__/pets/new}" class="btn btn-primary">添加
+      新宠物</a>
+  
+    <br />
+    <br />
+    <br />
+    <h2>宠物和访客</h2>
+  
+    <table class="table table-striped">
+  
+      <tr th:each="pet : ${owner.pets}">
+        <td valign="top">
+          <dl class="dl-horizontal">
+            <dt>名字</dt>
+            <dd th:text="${pet.name}"></dd>
+            <dt>出生日期</dt>
+            <dd
+              th:text="${#temporals.format(pet.birthDate, 'yyyy-MM-dd')}"></dd>
+            <dt>类型</dt>
+            <dd th:text="${pet.type}"></dd>
+          </dl>
+        </td>
+        <td valign="top">
+          <table class="table-condensed">
+            <thead>
+              <tr>
+                <th>拜访日期</th>
+                <th>描述</th>
+              </tr>
+            </thead>
+            <tr th:each="visit : ${pet.visits}">
+              <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}"></td>
+              <td th:text="${visit?.description}"></td>
+            </tr>
+            <tr>
+              <td><a th:href="@{__${owner.id}__/pets/__${pet.id}__/edit}">编辑宠物</a></td>
+              <td><a th:href="@{__${owner.id}__/pets/__${pet.id}__/visits/new}">添加拜访记录</a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+  
+    </table>
+  
+  </body>
+
+</html>
