@@ -4,6 +4,8 @@ services:
     image: mysql:5.7
     ports:
       - "3306"
+    volumes:
+      - "petclinic_data:/var/lib/mysql"
     environment:
       MYSQL_USER: petclinic
       MYSQL_PASSWORD: petclinic
@@ -15,9 +17,22 @@ services:
     image: adaclosure/petclinic:3.0.0
     ports:
       - "8080:8080"
-    links:
-      - db
     depends_on:
       - db
     environment:
       MYSQL_URL: jdbc:mysql://db:3306/petclinic
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+
+volumes:
+  petclinic_data:
+    driver: local
