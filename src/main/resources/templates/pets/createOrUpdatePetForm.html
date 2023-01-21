@@ -17,16 +17,16 @@
         </div>
       </div>
       <input
-        th:replace="~{fragments/inputField :: input ('Name', 'name', 'text')}" />
+        th:replace="~{fragments/inputField :: input ('名字', 'name', 'text')}" />
       <input
-        th:replace="~{fragments/inputField :: input ('Birth Date', 'birthDate', 'date')}" />
+        th:replace="~{fragments/inputField :: input ('出生日期', 'birthDate', 'date')}" />
       <input
-        th:replace="~{fragments/selectField :: select ('Type', 'type', ${types})}" />
+        th:replace="~{fragments/selectField :: select ('类型', 'type', ${types})}" />
     </div>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <button
-          th:with="text=${pet['new']} ? 'Add Pet' : 'Update Pet'"
+          th:with="text=${pet['new']} ? '添加宠物' : '更新宠物'"
           class="btn btn-primary" type="submit" th:text="${text}">添加
           宠物</button>
       </div>

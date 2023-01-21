@@ -40,4 +40,4 @@ docker-compose down
 ### 访问服务
 
 - Petclinic 主页：[http://localhost:8080](http://localhost:8080)
-- MySQL 后台管理 - PhpAdmin：[http://localhost:8081](http://localhost:8081)
+- MySQL 后台管理 - PhpAdmin：[http://localhost:8081](http://localhost:8081)，用户名和密码均为 `petclinic`
