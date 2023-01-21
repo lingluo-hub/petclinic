@@ -1,0 +1,23 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306"
+    environment:
+      MYSQL_USER: petclinic
+      MYSQL_PASSWORD: petclinic
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: petclinic
+
+  petclinic:
+#    build: .
+    image: adaclosure/petclinic:3.0.0
+    ports:
+      - "8080:8080"
+    links:
+      - db
+    depends_on:
+      - db
+    environment:
+      MYSQL_URL: jdbc:mysql://db:3306/petclinic

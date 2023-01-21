@@ -14,6 +14,19 @@ docker run -e MYSQL_USER=petclinic -e MYSQL_PASSWORD=petclinic -e MYSQL_ROOT_PAS
 ## 构建 docker 镜像
 
 ```shell
-./gradlew -x test
+git clone https://github.com/lingluo-hub/petclinic.git
+./gradlew build -x test
 docker build -t adaclosure/petclinic:3.0.0 .
+```
+
+## 运行容器编排
+
+启动：
+```shell
+docker-compose up -d
+```
+
+停止销毁：
+```shell
+docker-compose down
 ```
