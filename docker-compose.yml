@@ -17,7 +17,7 @@ services:
     image: adaclosure/petclinic:3.0.0
     ports:
       - "8080:8080"
-    depends_on:
+    links:
       - db
     environment:
       MYSQL_URL: jdbc:mysql://db:3306/petclinic
